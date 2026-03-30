@@ -1,35 +1,40 @@
-// Smooth scroll function
-function scrollToSection(id) {
-  document.getElementById(id).scrollIntoView({
-    behavior: 'smooth'
+// Smooth scroll
+document.querySelectorAll("[data-scroll]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.getElementById(btn.dataset.scroll)
+      .scrollIntoView({ behavior: "smooth" });
   });
-}
-
-// Contact form handler
-document.getElementById("contactForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-  document.getElementById("formMessage").textContent = "Message sent successfully!";
-  this.reset();
 });
 
-// Highlight active nav link on scroll
-window.addEventListener("scroll", () => {
-  const sections = document.querySelectorAll("section");
-  const navLinks = document.querySelectorAll(".nav-links a");
+// Theme toggle (with persistence)
+const toggle = document.getElementById("themeToggle");
+const root = document.documentElement;
 
-  let current = "";
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme) root.setAttribute("data-theme", savedTheme);
 
-  sections.forEach(section => {
-    const sectionTop = section.offsetTop - 100;
-    if (pageYOffset >= sectionTop) {
-      current = section.getAttribute("id");
+toggle.addEventListener("click", () => {
+  const current = root.getAttribute("data-theme");
+  const newTheme = current === "light" ? "dark" : "light";
+  root.setAttribute("data-theme", newTheme);
+  localStorage.setItem("theme", newTheme);
+});
+
+// Intersection Observer for animations
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("show");
     }
   });
+});
 
-  navLinks.forEach(link => {
-    link.classList.remove("active");
-    if (link.getAttribute("href").includes(current)) {
-      link.classList.add("active");
-    }
-  });
+document.querySelectorAll(".fade-in").forEach(el => {
+  observer.observe(el);
+});
+
+// Form handling
+document.getElementById("form").addEventListener("submit", e => {
+  e.preventDefault();
+  document.getElementById("status").textContent = "✅ Sent!";
 });

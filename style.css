@@ -1,111 +1,121 @@
+/* Theme Variables */
+:root {
+  --bg: #0f172a;
+  --text: #e2e8f0;
+  --primary: #38bdf8;
+  --card: #1e293b;
+}
+
+[data-theme="light"] {
+  --bg: #ffffff;
+  --text: #111;
+  --card: #f3f4f6;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
 }
 
 body {
-  line-height: 1.6;
+  font-family: system-ui;
+  background: var(--bg);
+  color: var(--text);
+  transition: 0.3s;
+}
+
+/* Layout */
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin: auto;
 }
 
 /* Navbar */
-header {
+.header {
   position: fixed;
   width: 100%;
-  background: #111;
-  color: #fff;
-  padding: 15px 0;
+  backdrop-filter: blur(12px);
+  background: rgba(0,0,0,0.4);
 }
 
-nav {
+.nav {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  justify-content: space-between;
+  padding: 15px 0;
 }
 
 .nav-links {
   display: flex;
+  gap: 20px;
   list-style: none;
-}
-
-.nav-links li {
-  margin: 0 15px;
-}
-
-.nav-links a {
-  color: white;
-  text-decoration: none;
-}
-
-/* Sections */
-.section {
-  padding: 100px 20px;
-  text-align: center;
 }
 
 /* Hero */
 .hero {
   height: 100vh;
-  background: linear-gradient(to right, #4facfe, #00f2fe);
-  color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.hero span {
-  color: yellow;
+/* Gradient Text */
+.gradient-text {
+  background: linear-gradient(90deg, #38bdf8, #818cf8);
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
-button {
-  padding: 10px 20px;
-  border: none;
-  background: #111;
-  color: white;
-  cursor: pointer;
+/* Button */
+.btn {
   margin-top: 20px;
+  padding: 12px 24px;
+  border: none;
+  background: var(--primary);
+  border-radius: 8px;
+  cursor: pointer;
 }
 
-/* Projects */
-.project-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.card {
-  background: #f4f4f4;
-  margin: 15px;
-  padding: 20px;
-  width: 250px;
-  border-radius: 10px;
-}
-
-/* Contact */
-form {
-  display: flex;
-  flex-direction: column;
-  max-width: 400px;
-  margin: auto;
-}
-
-form input, form textarea {
-  margin: 10px 0;
-  padding: 10px;
-}
-
-footer {
-  background: #111;
-  color: white;
+/* Sections */
+.section {
+  padding: 100px 0;
   text-align: center;
-  padding: 15px;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .project-container {
-    flex-direction: column;
-    align-items: center;
-  }
+/* Grid */
+.grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* Card */
+.card {
+  padding: 20px;
+  background: var(--card);
+  border-radius: 12px;
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+}
+
+/* Fade-in Animation */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+}
+
+.fade-in.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 20px;
 }
